@@ -1,0 +1,27 @@
+{
+  "name": "data-plugin",
+  "version": "0.0.1",
+  "private": false,
+  "description": "a config data plugin for nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yunmin97/data-plugin.git"
+  },
+  "contributors": [
+    {
+      "name": "yunmin",
+      "email": "362279869@qq.com"
+    }
+  ],
+  "dependencies": {
+  },
+  "keywords": [
+    "data-plugin"
+  ],
+  "author": "yunmin",
+  "license": "MIT"
+}
