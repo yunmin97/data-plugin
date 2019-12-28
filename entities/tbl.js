@@ -55,18 +55,27 @@ let Tbl = function (tmpL, idx) {
 };
 
 /**
- * find item by id
- *
- * @param id
- * @return {Object}
+ * get item by id
+ * @param id id key
+ * @returns {*}
  * @api public
  */
-Tbl.prototype.findById = function (id) {
+Tbl.prototype.get = function (id) {
     return this.data[id];
 };
 
 /**
- * find all item
+ * delete item by id
+ * @param id id key
+ * @returns {*}
+ * @api public
+ */
+Tbl.prototype.has = function (id) {
+    return this.data[id] !== undefined;
+};
+
+/**
+ * get all item
  *
  * @return {array}
  * @api public
