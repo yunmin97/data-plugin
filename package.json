@@ -1,6 +1,6 @@
 {
   "name": "data-plugin",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
   "description": "a config data plugin for nodejs",
   "main": "index.js",
@@ -19,6 +19,9 @@
   ],
   "dependencies": {
     "csv": "0.3.6"
+  },
+  "devDependencies": {
+    "express": "^4.17.1"
   },
   "keywords": [
     "data-plugin"
