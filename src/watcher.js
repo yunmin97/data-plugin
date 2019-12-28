@@ -47,12 +47,12 @@ function fixPath(dir) {
     return dir;
 }
 
-function loadCSV(cmp, filepath, tmpTbl, down) {
+function loadCSV(cmp, filepath, tmpTbl, parsers, down) {
     let name = path.basename(filepath, '.csv');
     // create a csv instance
-    cmp.csvParsers[name] = csv();
+    parsers[name] = csv();
+    let parser = parsers[name];
     tmpTbl[name] = [];
-    let parser = cmp.csvParsers[name];
     parser.from.path(filepath, {comment: '#'});
     // read csv data
     parser.on('record', function (row, index) {
@@ -97,8 +97,8 @@ function watching(cmp, filepath, name) {
     return function (curr, prev) {
         if (curr.mtime.getTime() > prev.mtime.getTime()) {
             if (name === undefined) {
-                let tmpTbl = {};
-                loadCSV(cmp, filepath, tmpTbl);
+                let tmpTbl = {}, parsers = {};
+                loadCSV(cmp, filepath, tmpTbl, parsers);
             } else {
                 loadJson(cmp, filepath, name);
             }
@@ -149,10 +149,11 @@ function loadAll(cmp) {
         utils.invokeCallback(cmp.onAllLoaded);
         return;
     }
-    let tmpTbl = {}, max = csv_files.length - 1;
+    let max = csv_files.length - 1;
+    let tmpTbl = {}, parsers = {};
     csv_files.forEach(function (file, index) {
         let fullpath = path.join(file.path, file.name);
-        loadCSV(cmp, fullpath, tmpTbl, index >= max);
+        loadCSV(cmp, fullpath, tmpTbl, parsers, index >= max);
         fs.watchFile(fullpath, {
             persistent: true,
             interval: cmp.interval
@@ -167,7 +168,6 @@ let Component = function (opts) {
     // id name of csv
     this.idx = opts.idx;
     this.csvDataTbl = {};
-    this.csvParsers = {};
 
     // json data table
     this.jsonDataTbl = {};
