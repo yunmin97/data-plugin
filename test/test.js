@@ -20,7 +20,8 @@
 // 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-const http = require('http');
+const url = require('url');
+const express = require('express');
 const plugin = require('../index')({
     dir: './test/files',
     // id for csv
@@ -36,32 +37,53 @@ const plugin = require('../index')({
 
 const hostname = '127.0.0.1';
 const port = 3000;
+const app = express();
 
-const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
+let decode = function (req, res) {
+    return req.query;
+};
 
+function example() {
     // check if the config exists
+    console.log('-----------------item-----------------');
     if (plugin.hasJson('card')) {
         let card = plugin.getJson('card');
-        console.log('card(json): ');
         console.log(card);
         console.log(card['c-1']);
     }
+    console.log('-----------------item-----------------\n');
 
+    console.log('-----------------csv-----------------');
     // check if the config exists
     if (plugin.hasCSV('item')) {
         let item = plugin.getCSV('item');
-        console.log('item(csv): ');
         console.log(item);
         console.log(item.has(0));
         console.log(item.get(0));
         console.log(item.has(10));
     }
+    console.log('-----------------csv-----------------\n');
+}
 
-    res.end('see result at the terminal console output!');
+app.get('/', function (req, res) {
+    let pathname = url.parse(req.url).pathname;
+    if (pathname === "/favicon.ico") {
+        return;
+    }
+
+    let data;
+    // example();
+    let msg = decode(req, res);
+
+    if (plugin.hasJson(msg.name)) {
+        data = plugin.getJson(msg.name);
+    }
+    if (plugin.hasCSV(msg.name)) {
+        data = plugin.getCSV(msg.name);
+    }
+    res.json(data || {});
 });
 
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-});
+app.listen(port, hostname);
+
+console.log(`run http://127.0.0.1:3000/?name=xx on browser for test[xx is file(csv/json) name]`);
