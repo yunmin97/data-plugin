@@ -20,3 +20,42 @@
 // 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+const http = require('http');
+const plugin = require('../index')({
+    dir: './files',
+    // id for csv
+    idx: 'id',
+    interval: 3000,
+    onLoaded: function (name) {
+        console.log('loaded: %s', name);
+    },
+    onAllLoaded: function () {
+        console.log('all loaded down')
+    }
+});
+
+const hostname = '127.0.0.1';
+const port = 3000;
+
+const server = http.createServer((req, res) => {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+
+    let card = plugin.getJson('card');
+    console.log('card(json): ');
+    console.log(card);
+    console.log(card['c-1']);
+
+    let item = plugin.getCSV('item');
+    console.log('item(csv): ');
+    console.log(item);
+    console.log(item.has(0));
+    console.log(item.get(0));
+    console.log(item.has(10));
+
+    res.end('see result at the terminal console output!');
+});
+
+server.listen(port, hostname, () => {
+    console.log(`Server running at http://${hostname}:${port}/`);
+});
