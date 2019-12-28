@@ -1,6 +1,6 @@
 {
   "name": "data-plugin",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "description": "a config data plugin for nodejs",
   "main": "index.js",
