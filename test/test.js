@@ -41,17 +41,23 @@ const server = http.createServer((req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
 
-    let card = plugin.getJson('card');
-    console.log('card(json): ');
-    console.log(card);
-    console.log(card['c-1']);
+    // check if the config exists
+    if (plugin.hasJson('card')) {
+        let card = plugin.getJson('card');
+        console.log('card(json): ');
+        console.log(card);
+        console.log(card['c-1']);
+    }
 
-    let item = plugin.getCSV('item');
-    console.log('item(csv): ');
-    console.log(item);
-    console.log(item.has(0));
-    console.log(item.get(0));
-    console.log(item.has(10));
+    // check if the config exists
+    if (plugin.hasCSV('item')) {
+        let item = plugin.getCSV('item');
+        console.log('item(csv): ');
+        console.log(item);
+        console.log(item.has(0));
+        console.log(item.get(0));
+        console.log(item.has(10));
+    }
 
     res.end('see result at the terminal console output!');
 });
