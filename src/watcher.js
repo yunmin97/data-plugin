@@ -50,9 +50,7 @@ function fixPath(dir) {
 function loadCSV(cmp, filepath, tmpTbl, down) {
     let name = path.basename(filepath, '.csv');
     // create a csv instance
-    if (cmp.csvParsers[name] === undefined) {
-        cmp.csvParsers[name] = csv();
-    }
+    cmp.csvParsers[name] = csv();
     tmpTbl[name] = [];
     let parser = cmp.csvParsers[name];
     parser.from.path(filepath, {comment: '#'});
@@ -99,7 +97,8 @@ function watching(cmp, filepath, name) {
     return function (curr, prev) {
         if (curr.mtime.getTime() > prev.mtime.getTime()) {
             if (name === undefined) {
-                loadCSV(cmp, filepath);
+                let tmpTbl = {};
+                loadCSV(cmp, filepath, tmpTbl);
             } else {
                 loadJson(cmp, filepath, name);
             }
