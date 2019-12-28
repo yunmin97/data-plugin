@@ -22,7 +22,7 @@
 
 const http = require('http');
 const plugin = require('../index')({
-    dir: './files',
+    dir: './test/files',
     // id for csv
     idx: 'id',
     interval: 3000,
