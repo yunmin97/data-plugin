@@ -1,8 +1,8 @@
 {
   "name": "data-plugin",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": false,
-  "description": "a config data plugin for nodejs",
+  "description": "a config data plugin for applications developed with nodejs",
   "main": "index.js",
   "scripts": {
     "test": "node ./test/test.js"
