@@ -25,7 +25,7 @@ const csv = require('csv');
 const path = require('path');
 const util = require('util');
 const utils = require('../utils/utils');
-const Tbl = require('../entities/tbl');
+const Tbl = require('./entities/tbl');
 const EventEmitter = require('events').EventEmitter;
 
 // singleton instance
