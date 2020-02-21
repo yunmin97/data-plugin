@@ -1,6 +1,6 @@
 data-plugin
 
-Config data plugin for applications developed with nodejs(https://nodejs.org/en/).
+Config data plugin for applications developed with [nodejs](https://nodejs.org/en/).
 
 data-plugin is a config data(.csv&.json) plugin for applications developed with nodejs. data-plugin can watch all config files in the given dir and reload the file automatically and asynchronous when it is modified. 
 
