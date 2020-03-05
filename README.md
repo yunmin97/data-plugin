@@ -40,7 +40,7 @@ if (!plugin.hasCSV('item')) {
     return;
 }
 // get a csv table by name
-let item = plugin.getJson('item');
+let item = plugin.getCSV('item');
 // check if the value exists by id
 if (item.has(0)) {
     return;
